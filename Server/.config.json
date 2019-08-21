@@ -468,5 +468,17 @@
    }
   }
  },
- "_credentialSecret": "c7946e3c0c93e9fbc182ab4e22160d56f8219dd1725d7559e1aaa558e21d9f28"
+ "_credentialSecret": "c7946e3c0c93e9fbc182ab4e22160d56f8219dd1725d7559e1aaa558e21d9f28",
+ "users": {
+  "_": {
+   "editor": {
+    "view": {
+     "view-grid-size": 20,
+     "view-node-status": true,
+     "view-node-show-label": true,
+     "view-show-tips": true
+    }
+   }
+  }
+ }
 }
