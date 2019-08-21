@@ -470,7 +470,7 @@
   "node-red-dashboard": {
    "name": "node-red-dashboard",
    "version": "2.16.0",
-   "local": false,
+   "local": true,
    "nodes": {
     "ui_base": {
      "name": "ui_base",
@@ -684,45 +684,10 @@
     }
    }
   },
-  "node-red-node-ui_list": {
-   "name": "node-red-node-ui_list",
-   "version": "0.1.5",
-   "local": false,
-   "nodes": {
-    "ui_list": {
-     "name": "ui_list",
-     "types": [
-      "ui_list"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-node-ui_list",
-     "file": "D:\\Todos_ENV_Monitor\\Server\\node_modules\\node-red-node-ui_list\\ui_list.js"
-    }
-   }
-  },
-  "node-red-contrib-mongodb3": {
-   "name": "node-red-contrib-mongodb3",
-   "version": "2.0.1",
-   "local": false,
-   "nodes": {
-    "mongodb": {
-     "name": "mongodb",
-     "types": [
-      "mongodb3",
-      "mongodb3 in"
-     ],
-     "enabled": true,
-     "local": true,
-     "module": "node-red-contrib-mongodb3",
-     "file": "D:\\Todos_ENV_Monitor\\Server\\node_modules\\node-red-contrib-mongodb3\\mongodb\\mongodb.js"
-    }
-   }
-  },
   "node-red-contrib-objectid": {
    "name": "node-red-contrib-objectid",
    "version": "0.7.2",
-   "local": false,
+   "local": true,
    "nodes": {
     "objectid": {
      "name": "objectid",
@@ -735,6 +700,23 @@
      "file": "D:\\Todos_ENV_Monitor\\Server\\node_modules\\node-red-contrib-objectid\\objectid.js"
     }
    }
+  },
+  "node-red-node-ui_list": {
+   "name": "node-red-node-ui_list",
+   "version": "0.1.5",
+   "local": true,
+   "nodes": {
+    "ui_list": {
+     "name": "ui_list",
+     "types": [
+      "ui_list"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-node-ui_list",
+     "file": "D:\\Todos_ENV_Monitor\\Server\\node_modules\\node-red-node-ui_list\\ui_list.js"
+    }
+   }
   }
  },
  "_credentialSecret": "3cafdf5daba8d939075ec920159a5e1533c4d473c77ba5322c6271e8097a9744",
@@ -742,10 +724,12 @@
   "_": {
    "editor": {
     "view": {
-     "view-grid-size": 20,
+     "view-grid-size": "20",
      "view-node-status": true,
      "view-node-show-label": true,
-     "view-show-tips": true
+     "view-show-tips": true,
+     "view-snap-grid": false,
+     "view-show-grid": false
     }
    }
   }
