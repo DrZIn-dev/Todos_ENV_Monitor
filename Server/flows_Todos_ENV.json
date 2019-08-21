@@ -15,5 +15,19 @@
         "x": 450,
         "y": 40,
         "wires": []
+    },
+    {
+        "id": "3cfe5f57.8abe4",
+        "type": "debug",
+        "z": "14f5dba6.7b0364",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 420,
+        "y": 220,
+        "wires": []
     }
 ]
