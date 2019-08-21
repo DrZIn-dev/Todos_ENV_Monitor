@@ -731,7 +731,21 @@
      "view-snap-grid": false,
      "view-show-grid": false
     }
+   },
+   "git": {
+    "user": {
+     "name": "DrZIn",
+     "email": "pasawee.dev@gmail.com"
+    }
    }
   }
+ },
+ "projects": {
+  "projects": {
+   "Server": {
+    "credentialSecret": false
+   }
+  },
+  "activeProject": "Server"
  }
 }

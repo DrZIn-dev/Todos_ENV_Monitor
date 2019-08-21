@@ -470,7 +470,7 @@
   "node-red-dashboard": {
    "name": "node-red-dashboard",
    "version": "2.16.0",
-   "local": false,
+   "local": true,
    "nodes": {
     "ui_base": {
      "name": "ui_base",
@@ -687,7 +687,7 @@
   "node-red-contrib-objectid": {
    "name": "node-red-contrib-objectid",
    "version": "0.7.2",
-   "local": false,
+   "local": true,
    "nodes": {
     "objectid": {
      "name": "objectid",
@@ -704,7 +704,7 @@
   "node-red-node-ui_list": {
    "name": "node-red-node-ui_list",
    "version": "0.1.5",
-   "local": false,
+   "local": true,
    "nodes": {
     "ui_list": {
      "name": "ui_list",
@@ -731,6 +731,19 @@
      "view-snap-grid": false,
      "view-show-grid": false
     }
+   },
+   "git": {
+    "user": {
+     "name": "DrZIn",
+     "email": "pasawee.dev@gmail.com"
+    }
+   }
+  }
+ },
+ "projects": {
+  "projects": {
+   "Server": {
+    "credentialSecret": false
    }
   }
  }
