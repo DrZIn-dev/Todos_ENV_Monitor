@@ -32,6 +32,10 @@
 #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <env.h>
+#include <Wire.h>
+#include <Adafruit_BMP280.h>
+#include "DHT12.h"
+#include "Adafruit_Sensor.h"
 
 //* Prototype
 void callback(char *topic, byte *payload, unsigned int length);
@@ -45,6 +49,7 @@ void pubRequest();
 void todoTopic(byte *payload, unsigned int length);
 void wifiSetup();
 void Loading();
+void pubENV();
 
 //* Display Prototype
 void text();
@@ -65,6 +70,7 @@ void Sleep();
 #define MQTT_SUB_TODOS "/NODE_RED/Todos" //? JSON Format
 #define MQTT_PUB_START "/ESP32_1/Start"  //? Tell isStart
 #define MQTT_SUB_COUNT "/NODE_RED/Count" //? Sub Count From MQTT
+#define MQTT_PUB_ENV "/ESP32_1/ENV"
 //* Wifi Details
 #define WIFI_STA_NAME MY_WIFI_USER
 #define WIFI_STA_PASSWORD MY_WIFI_PASSWORD
@@ -95,7 +101,8 @@ int stateMenuSL = 0;
 //* Object && Create Connection
 WiFiClient client;         //? Create TCP Connection
 PubSubClient mqtt(client); //? Create Mqtt over WiFiClient
-
+DHT12 dht12;               //Preset scale CELSIUS and ID 0x5c.
+Adafruit_BMP280 bme;
 //* Addition Function
 void wifiSetup()
 {
@@ -327,6 +334,7 @@ void menu()
       state = 0;
     }
     mqtt.loop();
+
     M5.update();
   }
 }
@@ -375,6 +383,7 @@ void Todo()
       state = 0;
     }
     mqtt.loop();
+    pubENV();
     M5.update();
   }
 }
@@ -402,7 +411,9 @@ void Sleep()
     {
       state = 0;
     }
+
     mqtt.loop();
+
     M5.update();
   }
 }
@@ -421,20 +432,44 @@ void Loading()
   M5.update();
   //***********************************
 }
+
+void pubENV()
+{
+
+  float tmp = dht12.readTemperature();
+  float hum = dht12.readHumidity();
+  float pressure = bme.readPressure();
+
+  const size_t capacity = JSON_OBJECT_SIZE(3);
+  DynamicJsonDocument doc(capacity);
+  char buffer[512];
+  // Todo : Change To Pub ENV
+  doc["temp"] = tmp;
+  doc["hum"] = hum;
+  doc["pressure"] = pressure;
+
+  serializeJson(doc, buffer);
+
+  mqtt.publish(MQTT_PUB_ENV, buffer);
+}
+
 void setup()
 {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.println();
   M5.begin();
+  Wire.begin();
   Loading();
   wifiSetup();
   mqttSetup();
+  while (!bme.begin(0x76))
+  {
+    Serial.println("Could not find a valid BMP280 sensor, check wiring!");
+    M5.Lcd.println("Could not find a valid BMP280 sensor, check wiring!");
+  }
 }
 
-void pubENV()
-{
-}
 void loop()
 {
   // put your main code here, to run repeatedly:
