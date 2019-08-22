@@ -268,20 +268,6 @@
         ]
     },
     {
-        "id": "911a5631.89a4f8",
-        "type": "objectid",
-        "z": "14f5dba6.7b0364",
-        "name": "",
-        "selectedProperty": "store_id",
-        "x": 460,
-        "y": 140,
-        "wires": [
-            [
-                "dfbbf655.62c218"
-            ]
-        ]
-    },
-    {
         "id": "dfbbf655.62c218",
         "type": "function",
         "z": "14f5dba6.7b0364",
@@ -323,7 +309,9 @@
         "x": 820,
         "y": 180,
         "wires": [
-            []
+            [
+                "dba3bfc8.ffcbf"
+            ]
         ]
     },
     {
@@ -622,26 +610,6 @@
         "wires": []
     },
     {
-        "id": "e09b9588.2301c",
-        "type": "inject",
-        "z": "8ddedb49.bb7418",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "1",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 150,
-        "y": 140,
-        "wires": [
-            [
-                "9c719982.dd95a8"
-            ]
-        ]
-    },
-    {
         "id": "acdaa560.de5b",
         "type": "mongodb3 in",
         "z": "8ddedb49.bb7418",
@@ -672,6 +640,7 @@
         "y": 140,
         "wires": [
             [
+                "de1b49ac.8aeb78",
                 "acdaa560.de5b"
             ]
         ]
@@ -929,7 +898,7 @@
         "width": "6",
         "height": "10",
         "lineType": "three",
-        "actionType": "check",
+        "actionType": "switch",
         "allowHTML": false,
         "x": 690,
         "y": 340,
@@ -1101,56 +1070,20 @@
         "wires": []
     },
     {
-        "id": "22f8b038.7edbe8",
-        "type": "ui_button",
-        "z": "14f5dba6.7b0364",
-        "name": "",
-        "group": "4ac18369.c4355c",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Done",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "x": 110,
-        "y": 560,
-        "wires": [
-            [
-                "faa466b7.840b08"
-            ]
-        ]
-    },
-    {
         "id": "653583ae.db8ae4",
         "type": "function",
         "z": "14f5dba6.7b0364",
         "name": "",
-        "func": "let in_msg = msg.payload\nlet deleteArray = global.get('delete_todo') || []\nif(in_msg.isChecked === true )\n{\n    deleteArray.push({\"store_id\":in_msg.store_id})\n    global.set('delete_todo',deleteArray)\n}\n\nreturn msg;",
+        "func": "let in_msg = msg.payload\nlet delete_id = in_msg.store_id\nmsg.payload = {\n    \"store_id\":delete_id\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 890,
-        "y": 420,
+        "x": 950,
+        "y": 440,
         "wires": [
-            []
+            [
+                "8dc96333.b22a2"
+            ]
         ]
-    },
-    {
-        "id": "f5efe2b7.dfc83",
-        "type": "link out",
-        "z": "14f5dba6.7b0364",
-        "name": "delete Array",
-        "links": [
-            "d4f1b593.95b858"
-        ],
-        "x": 475,
-        "y": 560,
-        "wires": []
     },
     {
         "id": "4aa7a52e.4a323c",
@@ -1166,15 +1099,15 @@
         "id": "d4f1b593.95b858",
         "type": "link in",
         "z": "8ddedb49.bb7418",
-        "name": "delete Array",
+        "name": "delete id",
         "links": [
-            "f5efe2b7.dfc83"
+            "8dc96333.b22a2"
         ],
-        "x": 55,
+        "x": 115,
         "y": 680,
         "wires": [
             [
-                "8c46f68e.2729f"
+                "56cbbe39.66e918"
             ]
         ]
     },
@@ -1187,12 +1120,13 @@
         "name": "Delete Many",
         "collection": "todos",
         "operation": "deleteOne",
-        "x": 510,
+        "x": 410,
         "y": 680,
         "wires": [
             [
                 "dca5e0d2.2fc24",
-                "5d81875f.3c3fb8"
+                "5d81875f.3c3fb8",
+                "6b559d8a.87a4e4"
             ]
         ]
     },
@@ -1207,25 +1141,9 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 800,
+        "x": 660,
         "y": 800,
         "wires": []
-    },
-    {
-        "id": "faa466b7.840b08",
-        "type": "function",
-        "z": "14f5dba6.7b0364",
-        "name": "Get delete _todo",
-        "func": "let delete_todo = global.get('delete_todo')\nmsg.payload = delete_todo\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 310,
-        "y": 560,
-        "wires": [
-            [
-                "f5efe2b7.dfc83"
-            ]
-        ]
     },
     {
         "id": "5d81875f.3c3fb8",
@@ -1235,7 +1153,7 @@
         "links": [
             "b7c73278.1d8c58"
         ],
-        "x": 755,
+        "x": 615,
         "y": 600,
         "wires": []
     },
@@ -1250,22 +1168,6 @@
         "wires": []
     },
     {
-        "id": "8c46f68e.2729f",
-        "type": "function",
-        "z": "8ddedb49.bb7418",
-        "name": "",
-        "func": "let payload = msg.payload\nlet output = []\nlet each = {}\npayload.forEach((e)=>{\n    each ={\n        \"payload\":e\n    }\n    output.push(each)\n})\nreturn output\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 150,
-        "y": 680,
-        "wires": [
-            [
-                "56cbbe39.66e918"
-            ]
-        ]
-    },
-    {
         "id": "6b559d8a.87a4e4",
         "type": "function",
         "z": "8ddedb49.bb7418",
@@ -1273,10 +1175,78 @@
         "func": "global.set(\"delete_todo\",null)\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 800,
+        "x": 660,
         "y": 680,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "911a5631.89a4f8",
+        "type": "objectid",
+        "z": "14f5dba6.7b0364",
+        "name": "",
+        "selectedProperty": "store_id",
+        "x": 460,
+        "y": 140,
+        "wires": [
+            [
+                "dfbbf655.62c218"
+            ]
+        ]
+    },
+    {
+        "id": "de1b49ac.8aeb78",
+        "type": "debug",
+        "z": "8ddedb49.bb7418",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 560,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "993c6b88.634d88",
+        "type": "link in",
+        "z": "8ddedb49.bb7418",
+        "name": "is Insert",
+        "links": [
+            "dba3bfc8.ffcbf"
+        ],
+        "x": 155,
+        "y": 140,
+        "wires": [
+            [
+                "9c719982.dd95a8"
+            ]
+        ]
+    },
+    {
+        "id": "dba3bfc8.ffcbf",
+        "type": "link out",
+        "z": "14f5dba6.7b0364",
+        "name": "is Insert",
+        "links": [
+            "993c6b88.634d88"
+        ],
+        "x": 1115,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8dc96333.b22a2",
+        "type": "link out",
+        "z": "14f5dba6.7b0364",
+        "name": "Delete ID",
+        "links": [
+            "d4f1b593.95b858"
+        ],
+        "x": 1075,
+        "y": 440,
+        "wires": []
     }
 ]
