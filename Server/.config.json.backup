@@ -737,6 +737,23 @@
      "file": "C:\\Users\\Dr_Zin\\node_modules\\node-red-node-mongodb\\66-mongodb.js"
     }
    }
+  },
+  "node-red-contrib-objectid": {
+   "name": "node-red-contrib-objectid",
+   "version": "0.7.2",
+   "local": false,
+   "nodes": {
+    "objectid": {
+     "name": "objectid",
+     "types": [
+      "objectid"
+     ],
+     "enabled": true,
+     "local": true,
+     "module": "node-red-contrib-objectid",
+     "file": "D:\\Todos_ENV_Monitor\\Server\\node_modules\\node-red-contrib-objectid\\objectid.js"
+    }
+   }
   }
  },
  "_credentialSecret": "c7946e3c0c93e9fbc182ab4e22160d56f8219dd1725d7559e1aaa558e21d9f28",

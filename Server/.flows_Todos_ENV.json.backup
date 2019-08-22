@@ -28,6 +28,13 @@
         "info": ""
     },
     {
+        "id": "7314d481.60977c",
+        "type": "tab",
+        "label": "Pub Todo",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "6914b13f.804ef8",
         "type": "ui_tab",
         "z": "",
@@ -148,7 +155,7 @@
         "z": "",
         "uri": "mongodb+srv://pasaweeDev:61010707@cluster0-s4oyf.gcp.mongodb.net/Todo_ENV?retryWrites=true&w=majority",
         "name": "Todo_ENV_Database",
-        "options": "",
+        "options": "{ \"useNewUrlParser\": true,\"useUnifiedTopology\": true }",
         "parallelism": "-1"
     },
     {
@@ -624,7 +631,8 @@
             [
                 "858753be.93702",
                 "342bf19d.53af3e",
-                "b114eebe.314bb8"
+                "b114eebe.314bb8",
+                "8a379586.d566e8"
             ]
         ]
     },
@@ -1027,7 +1035,7 @@
         "type": "function",
         "z": "8ddedb49.bb7418",
         "name": "Pre Sent",
-        "func": "let todos=msg.payload\nlet todoArray = Object.values(todos)\ntodoArray.forEach((e)=>{\n    delete e._id\n    e.date = e.date.toString().substr(0,e.date.toString().length-14)\n   \n})\nlet todo_list = {\n    \"list\":todos\n}\nmsg.payload = todo_list\nreturn msg;",
+        "func": "let todos=msg.payload\nlet todoArray = Object.values(todos)\ntodoArray.forEach((e)=>{\n    delete e._id\n    e.date = e.date.toString().substr(0,e.date.toString().length-14)\n   \n})\nlet todo_list = {\n    \"list\":todos\n}\nglobal.set('todo_list',todo_list)\nmsg.payload = todo_list\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 760,
@@ -1081,7 +1089,8 @@
         "y": 440,
         "wires": [
             [
-                "8dc96333.b22a2"
+                "8dc96333.b22a2",
+                "b3aa7069.92a06"
             ]
         ]
     },
@@ -1247,6 +1256,234 @@
         ],
         "x": 1075,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "c8a2d825.5c30d8",
+        "type": "mongodb3 in",
+        "z": "7314d481.60977c",
+        "service": "_ext_",
+        "configNode": "80546830.bfc89",
+        "name": "",
+        "collection": "todos",
+        "operation": "find.forEach",
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "1cba0727.b55a39"
+            ]
+        ]
+    },
+    {
+        "id": "1cba0727.b55a39",
+        "type": "function",
+        "z": "7314d481.60977c",
+        "name": "delete and modify ",
+        "func": "delete msg.payload._id\nmsg.payload.date = msg.payload.date.toString().substr(0,msg.payload.date.toString().length-14)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 790,
+        "y": 120,
+        "wires": [
+            [
+                "d9f244f5.8072e8"
+            ]
+        ]
+    },
+    {
+        "id": "d9f244f5.8072e8",
+        "type": "mqtt out",
+        "z": "7314d481.60977c",
+        "name": "",
+        "topic": "/NODE_RED/Todos",
+        "qos": "0",
+        "retain": "false",
+        "broker": "896704eb.eb24f8",
+        "x": 1050,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "149d6a88.9aa255",
+        "type": "debug",
+        "z": "7314d481.60977c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1150,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "19e7110.81b19ef",
+        "type": "mongodb3 in",
+        "z": "7314d481.60977c",
+        "service": "_ext_",
+        "configNode": "80546830.bfc89",
+        "name": "",
+        "collection": "todos",
+        "operation": "find.toArray",
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "364faa52.209636"
+            ]
+        ]
+    },
+    {
+        "id": "364faa52.209636",
+        "type": "function",
+        "z": "7314d481.60977c",
+        "name": "Count All Docs",
+        "func": "let payload =msg.payload\nlet length = Object.values(payload).length\nmsg.payload = length\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 900,
+        "y": 320,
+        "wires": [
+            [
+                "149d6a88.9aa255",
+                "a4b69093.136af",
+                "8d4e1759.574b48"
+            ]
+        ]
+    },
+    {
+        "id": "a4b69093.136af",
+        "type": "mqtt out",
+        "z": "7314d481.60977c",
+        "name": "",
+        "topic": "/NODE_RED/Count",
+        "qos": "0",
+        "retain": "false",
+        "broker": "896704eb.eb24f8",
+        "x": 1170,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "710f7008.844d",
+        "type": "delay",
+        "z": "7314d481.60977c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 240,
+        "y": 380,
+        "wires": [
+            [
+                "19e7110.81b19ef"
+            ]
+        ]
+    },
+    {
+        "id": "418600a0.2f298",
+        "type": "mqtt in",
+        "z": "7314d481.60977c",
+        "name": "",
+        "topic": "/ESP32_1/Start",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "896704eb.eb24f8",
+        "x": 280,
+        "y": 560,
+        "wires": [
+            [
+                "710f7008.844d"
+            ]
+        ]
+    },
+    {
+        "id": "8d4e1759.574b48",
+        "type": "delay",
+        "z": "7314d481.60977c",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "c8a2d825.5c30d8"
+            ]
+        ]
+    },
+    {
+        "id": "8a379586.d566e8",
+        "type": "link out",
+        "z": "8ddedb49.bb7418",
+        "name": "is Fetch",
+        "links": [
+            "484c413b.3bc06"
+        ],
+        "x": 735,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "484c413b.3bc06",
+        "type": "link in",
+        "z": "7314d481.60977c",
+        "name": "is Fetch",
+        "links": [
+            "8a379586.d566e8",
+            "b3aa7069.92a06"
+        ],
+        "x": 115,
+        "y": 320,
+        "wires": [
+            [
+                "f686e865.90ebe8"
+            ]
+        ]
+    },
+    {
+        "id": "f686e865.90ebe8",
+        "type": "function",
+        "z": "7314d481.60977c",
+        "name": "",
+        "func": "msg.payload = {}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 320,
+        "wires": [
+            [
+                "19e7110.81b19ef"
+            ]
+        ]
+    },
+    {
+        "id": "b3aa7069.92a06",
+        "type": "link out",
+        "z": "14f5dba6.7b0364",
+        "name": "is Fetch",
+        "links": [
+            "484c413b.3bc06"
+        ],
+        "x": 1075,
+        "y": 560,
         "wires": []
     }
 ]
