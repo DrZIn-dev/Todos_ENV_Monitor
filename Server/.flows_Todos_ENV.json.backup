@@ -898,7 +898,7 @@
         "width": "6",
         "height": "10",
         "lineType": "three",
-        "actionType": "switch",
+        "actionType": "click",
         "allowHTML": false,
         "x": 690,
         "y": 340,
@@ -1120,7 +1120,7 @@
         "name": "Delete Many",
         "collection": "todos",
         "operation": "deleteOne",
-        "x": 410,
+        "x": 350,
         "y": 680,
         "wires": [
             [

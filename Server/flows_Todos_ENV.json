@@ -28,6 +28,13 @@
         "info": ""
     },
     {
+        "id": "7314d481.60977c",
+        "type": "tab",
+        "label": "Pub Todo",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "6914b13f.804ef8",
         "type": "ui_tab",
         "z": "",
