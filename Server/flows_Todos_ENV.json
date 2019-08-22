@@ -47,6 +47,7 @@
         "z": "",
         "name": "Untimate Todo",
         "icon": "dashboard",
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -140,9 +141,9 @@
         "site": {
             "name": "Node-RED Dashboard",
             "hideToolbar": "false",
-            "allowSwipe": "false",
+            "allowSwipe": "true",
             "lockMenu": "false",
-            "allowTempTheme": "true",
+            "allowTempTheme": "none",
             "dateFormat": "DD/MM/YYYY",
             "sizes": {
                 "sx": 48,
@@ -204,7 +205,7 @@
         "z": "",
         "name": "ENV Dashboard",
         "icon": "dashboard",
-        "order": 2,
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -223,6 +224,15 @@
         "name": "Group 2",
         "tab": "dd92b981.b40aa8",
         "order": 2,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "7d5c024d.903cac",
+        "type": "ui_group",
+        "name": "Group 3",
+        "tab": "dd92b981.b40aa8",
+        "order": 3,
         "disp": true,
         "width": 6
     },
@@ -937,7 +947,7 @@
         "z": "14f5dba6.7b0364",
         "group": "4ac18369.c4355c",
         "name": "",
-        "order": 2,
+        "order": 1,
         "width": "6",
         "height": "10",
         "lineType": "three",
@@ -1611,7 +1621,7 @@
         "type": "function",
         "z": "1516c399.b0a68c",
         "name": "",
-        "func": "let data = msg.payload.hum\nmsg.payload=data\nmsg.topic=\"value\"\nreturn msg;",
+        "func": "let data = msg.payload.hum\nmsg.payload=data\nmsg.label=\"hum\"\nmsg.topic=\"value\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 350,
@@ -1653,14 +1663,14 @@
         "type": "function",
         "z": "1516c399.b0a68c",
         "name": "",
-        "func": "let data = msg.payload.pressure\nmsg.payload=data\nmsg.topic=\"value\"\nreturn msg;",
+        "func": "let data = msg.payload.pressure\nmsg.payload=data\nmsg.series=\"pressure\"\nmsg.topic=\"value\"\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 360,
         "y": 560,
         "wires": [
             [
-                "379feb0b.b87f74"
+                "75188618.2f3b18"
             ]
         ]
     },
@@ -1683,8 +1693,8 @@
         "type": "ui_gauge",
         "z": "1516c399.b0a68c",
         "name": "",
-        "group": "ce3c07ed.f28948",
-        "order": 2,
+        "group": "959bde5e.69fdb",
+        "order": 1,
         "width": 0,
         "height": 0,
         "gtype": "wave",
@@ -1705,45 +1715,29 @@
         "wires": []
     },
     {
-        "id": "379feb0b.b87f74",
-        "type": "ui_chart",
+        "id": "75188618.2f3b18",
+        "type": "ui_gauge",
         "z": "1516c399.b0a68c",
         "name": "",
-        "group": "959bde5e.69fdb",
+        "group": "7d5c024d.903cac",
         "order": 1,
         "width": 0,
         "height": 0,
-        "label": "chart",
-        "chartType": "line",
-        "legend": "false",
-        "xformat": "dd HH:mm",
-        "interpolate": "linear",
-        "nodata": "",
-        "dot": false,
-        "ymin": "",
-        "ymax": "",
-        "removeOlder": 1,
-        "removeOlderPoints": "",
-        "removeOlderUnit": "86400",
-        "cutout": 0,
-        "useOneColor": false,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "pa",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "200000",
         "colors": [
-            "#1f77b4",
-            "#aec7e8",
-            "#ff7f0e",
-            "#2ca02c",
-            "#98df8a",
-            "#d62728",
-            "#ff9896",
-            "#9467bd",
-            "#c5b0d5"
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
         ],
-        "useOldStyle": false,
-        "outputs": 1,
-        "x": 550,
+        "seg1": "",
+        "seg2": "",
+        "x": 540,
         "y": 560,
-        "wires": [
-            []
-        ]
+        "wires": []
     }
 ]
