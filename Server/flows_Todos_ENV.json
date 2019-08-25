@@ -996,7 +996,7 @@
         "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 140,
+        "x": 120,
         "y": 340,
         "wires": [
             [
@@ -1358,9 +1358,10 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
-        "x": 1150,
-        "y": 400,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1310,
+        "y": 480,
         "wires": []
     },
     {
@@ -1392,9 +1393,9 @@
         "y": 320,
         "wires": [
             [
-                "149d6a88.9aa255",
                 "a4b69093.136af",
-                "8d4e1759.574b48"
+                "8d4e1759.574b48",
+                "149d6a88.9aa255"
             ]
         ]
     },
@@ -1534,7 +1535,7 @@
         "z": "7314d481.60977c",
         "name": "Count Doc",
         "info": "",
-        "x": 220,
+        "x": 260,
         "y": 260,
         "wires": []
     },
@@ -1610,7 +1611,7 @@
         "name": "",
         "collection": "env",
         "operation": "insert",
-        "x": 430,
+        "x": 490,
         "y": 120,
         "wires": [
             []
@@ -1739,5 +1740,24 @@
         "x": 540,
         "y": 560,
         "wires": []
+    },
+    {
+        "id": "a686af33.27809",
+        "type": "ui_template",
+        "z": "14f5dba6.7b0364",
+        "group": "ce3c07ed.f28948",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 240,
+        "y": 580,
+        "wires": [
+            []
+        ]
     }
 ]

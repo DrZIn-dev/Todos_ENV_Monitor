@@ -42,6 +42,13 @@
         "info": ""
     },
     {
+        "id": "2f083773.1b9018",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "6914b13f.804ef8",
         "type": "ui_tab",
         "z": "",
@@ -141,7 +148,7 @@
         "site": {
             "name": "Node-RED Dashboard",
             "hideToolbar": "false",
-            "allowSwipe": "false",
+            "allowSwipe": "true",
             "lockMenu": "false",
             "allowTempTheme": "none",
             "dateFormat": "DD/MM/YYYY",
@@ -996,7 +1003,7 @@
         "payload": "",
         "payloadType": "str",
         "topic": "",
-        "x": 140,
+        "x": 120,
         "y": 340,
         "wires": [
             [
@@ -1358,9 +1365,10 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
-        "x": 1150,
-        "y": 400,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1310,
+        "y": 480,
         "wires": []
     },
     {
@@ -1392,9 +1400,9 @@
         "y": 320,
         "wires": [
             [
-                "149d6a88.9aa255",
                 "a4b69093.136af",
-                "8d4e1759.574b48"
+                "8d4e1759.574b48",
+                "149d6a88.9aa255"
             ]
         ]
     },
@@ -1534,7 +1542,7 @@
         "z": "7314d481.60977c",
         "name": "Count Doc",
         "info": "",
-        "x": 220,
+        "x": 260,
         "y": 260,
         "wires": []
     },
@@ -1739,5 +1747,150 @@
         "x": 540,
         "y": 560,
         "wires": []
+    },
+    {
+        "id": "a686af33.27809",
+        "type": "ui_template",
+        "z": "14f5dba6.7b0364",
+        "group": "ce3c07ed.f28948",
+        "name": "",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 240,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "49104d7.275f8b4",
+        "type": "http in",
+        "z": "2f083773.1b9018",
+        "name": "home",
+        "url": "/w",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 340,
+        "y": 200,
+        "wires": [
+            [
+                "f6aaed43.4b85"
+            ]
+        ]
+    },
+    {
+        "id": "f6aaed43.4b85",
+        "type": "function",
+        "z": "2f083773.1b9018",
+        "name": "test",
+        "func": "char = \"asd/asd/hr\"\nreturn char;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 540,
+        "y": 220,
+        "wires": [
+            [
+                "fe5ac32d.cc3c4"
+            ]
+        ]
+    },
+    {
+        "id": "fe5ac32d.cc3c4",
+        "type": "split",
+        "z": "2f083773.1b9018",
+        "name": "",
+        "splt": "/",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 780,
+        "y": 220,
+        "wires": [
+            [
+                "a609ed81.86073"
+            ]
+        ]
+    },
+    {
+        "id": "a609ed81.86073",
+        "type": "join",
+        "z": "2f083773.1b9018",
+        "name": "",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": ",",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 970,
+        "y": 220,
+        "wires": [
+            [
+                "62e5d568.4b9dcc",
+                "8fbef141.1d4cc"
+            ]
+        ]
+    },
+    {
+        "id": "62e5d568.4b9dcc",
+        "type": "http response",
+        "z": "2f083773.1b9018",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1180,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "8fbef141.1d4cc",
+        "type": "debug",
+        "z": "2f083773.1b9018",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1170,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a694eaeb.56e608",
+        "type": "inject",
+        "z": "2f083773.1b9018",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "f6aaed43.4b85"
+            ]
+        ]
     }
 ]
